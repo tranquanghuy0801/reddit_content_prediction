@@ -1,7 +1,6 @@
 import os 
 import pandas as pd 
 
-
 if not os.path.exists("result.csv"):
     data_loaded = pd.read_json("index.json")
     data_loaded.to_csv("result.csv")

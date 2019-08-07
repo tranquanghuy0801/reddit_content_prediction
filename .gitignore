@@ -1,4 +1,4 @@
-crawling_result 
+resources
 *.json
 env 
 .vscode 

@@ -14,7 +14,7 @@ STOPWORDS = set(stopwords.words('english'))
 path = os.path.join(os.getcwd(), 'crawling_result')
 folder = "/resources" # Folder to save text file after preprocessing
 
-def clean_text(text):
+def clean_text(data,text):
     """
         text: a string
         
@@ -25,12 +25,12 @@ def clean_text(text):
     text = BAD_SYMBOLS_RE.sub('', text) # delete symbols which are in BAD_SYMBOLS_RE from text
     text = re.sub(r'^https?:\/\/.*[\r\n]*', '', text, flags=re.MULTILINE)
     text = ' '.join(word for word in text.split() if word not in STOPWORDS) # delete stopwors from text
-    return text
+    data['title'] = data['title'].apply(clean_text)
+    data['body'] = data['body'].apply(clean_text)
+    data['len_word'] = data['body'].apply(lambda x: len(x.split()))
+    data = data[data['len_word'] >= 20]
+    return data 
 
-data['title'] = data['title'].apply(clean_text)
-data['body'] = data['body'].apply(clean_text)
-data['len_word'] = data['body'].apply(lambda x: len(x.split()))
-data = data[data['len_word'] >= 20]
 
 if not os.path.exists(path+folder):
     os.path.makedirs(path+folder)
