@@ -21,6 +21,7 @@ today = datetime.date.today()
 # Crawl the data from Reddit 
 reddit = praw.Reddit(client_id=client_id,client_secret=client_secret,user_agent=user_agent)
 
+# Save the crawled data to CSV file
 posts = []
 ml_subreddit = reddit.subreddit("QUTreddit")
 for post in ml_subreddit.hot(limit=None):

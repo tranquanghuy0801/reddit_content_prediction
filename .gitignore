@@ -1,6 +1,7 @@
 crawling_result 
-google_api
+*.json
 env 
 .vscode 
 .env 
+.DS_Store
 
