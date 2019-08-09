@@ -64,28 +64,24 @@ def classify(text, verbose=True):
 
 
 # [START language_classify_text_tutorial_index]
-def index(path, index_file):
+def index(path,output_path, index_file):
     """Classify each text file in a directory and write
     the results to the index_file.
     """
-
-    result = {}
+    result = {} 
     for filename in os.listdir(path):
         file_path = os.path.join(path, filename)
-
         if not os.path.isfile(file_path):
             continue
-
         try:
             with io.open(file_path, 'r') as f:
                 text = f.read()
-                categories = classify(text, verbose=False)
-
+                categories = classify(text,verbose=False)
                 result[filename] = categories
         except Exception:
             print('Failed to process {}'.format(file_path))
 
-    with io.open(index_file, 'w', encoding='utf-8') as f:
+    with io.open(output_path+"/"+index_file, 'w', encoding='utf-8') as f:
         f.write(json.dumps(result, ensure_ascii=False))
 
     print('Texts indexed in file: {}'.format(index_file))

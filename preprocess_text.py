@@ -2,8 +2,15 @@ import re, string, unicodedata
 import nltk
 import contractions
 import inflect
+import os
 from nltk import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
+
+def create_dir(path,folder):
+    if not os.path.exists(path+folder):
+        os.makedirs(path+folder)
+    output_path = path + folder 
+    return output_path
 
 def replace_contractions(text):
     """Replace contractions in string of text"""
