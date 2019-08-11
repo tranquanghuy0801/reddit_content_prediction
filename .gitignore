@@ -3,6 +3,7 @@
 *.json
 env 
 .vscode 
+__pycache__
 .env 
 .DS_Store
-__pycache__
+result.csv
