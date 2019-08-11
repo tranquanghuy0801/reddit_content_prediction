@@ -1,4 +1,5 @@
-resources
+**resources/csv_files
+**resources/text_files
 *.json
 env 
 .vscode 

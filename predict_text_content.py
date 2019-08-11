@@ -13,7 +13,7 @@ def predict_label(reddit_link,process_path):
 	for text in f:
 		text = text.rstrip('\n').strip() 
 		path_text = process_path + "/" + text 
-		result = index(path_text,path_text,"index.json")
+		result = index(path_text,"index.json")
 		data_loaded = pd.read_json(path_text+"/index.json")
 		os.remove(path_text+"/index.json")
 		data_loaded.to_csv(path_text+"/result.csv")
@@ -27,20 +27,9 @@ def predict_label(reddit_link,process_path):
 		print(grouped.head(5))
 	print("Close Predicting")
 
+os.system("python3 crawl_reddit.py")
 predict_label(reddit_link,process_path)
 
-
-'''
-if not os.path.exists("result.csv"):
-	data_loaded = pd.read_json("index.json")
-	data_loaded.to_csv("result.csv")
-df = pd.read_csv("result.csv")
-df['Count'] = df.apply(lambda x: x.count(), axis=1)
-df.rename(index=str,columns={'Unnamed: 0':'Categories'},inplace=True)
-grouped = df[['Categories','Count']]
-grouped = grouped.sort_values(by='Count',ascending=False)
-print(grouped.head(5))
-'''
 
 
 

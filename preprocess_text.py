@@ -89,6 +89,6 @@ def preprocess(sample):
     words = nltk.word_tokenize(sample)
 
     # Normalize
-    words = normalize(words)
+    words = normalize(sample)
     words = ' '.join(word for word in words)
     return words

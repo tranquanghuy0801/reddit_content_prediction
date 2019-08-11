@@ -30,13 +30,13 @@ def process_url(input_path, output_csv, output_txt):
 			f = open(file_path, "r")
 			for text in f:
 				text = text.rstrip('\n').strip()
-				print(text)
+				print("Processing /r/" + text)
 				reddit = praw.Reddit(client_id=client_id,
                                     client_secret=client_secret, user_agent=user_agent)
 				# Save the crawled data to CSV file
 				posts = []
 				ml_subreddit = reddit.subreddit(text)
-				for post in ml_subreddit.hot(limit=30):
+				for post in ml_subreddit.hot(limit=10):
 					posts.append([post.title, post.score, post.id, post.subreddit,
                                             post.url, post.num_comments, post.selftext, post.created])
 				posts = pd.DataFrame(posts, columns=[
@@ -48,8 +48,8 @@ def process_url(input_path, output_csv, output_txt):
 				posts.to_csv(output_csv_path+"/"+str(text)+"-"+str(today)+".csv")
 				data = pd.read_csv(output_csv_path+"/"+str(text)+"-"+str(today)+".csv", names=[
 				                   'title', 'score', 'id', 'subreddit', 'url', 'num_comments', 'body', 'created'])
-				data['title'] = data['title'].apply(preprocess)
-				data['body'] = data['body'].apply(preprocess)
+				#data['title'] = data['title'].apply(preprocess)
+				#data['body'] = data['body'].apply(preprocess)
 				data['len_word'] = data['body'].apply(lambda x: len(x.split()))
 				data = data[data['len_word'] >= 20]
 				data['body'].to_csv(output_txt_path+"/"+str(text)+"-"+str(today) +
